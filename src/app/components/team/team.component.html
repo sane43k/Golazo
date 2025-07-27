@@ -1,0 +1,12 @@
+<div class="team-section">
+    <div class="container">
+        <app-status
+            *ngIf="loading || !teamInfo"
+            [status]="loading ? 'Loading...' : 'Nothing found'"
+        ></app-status>
+        <app-team-card 
+            *ngIf="teamInfo"
+            [teamInfo]="teamInfo"
+        ></app-team-card>
+    </div>
+</div>

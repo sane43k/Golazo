@@ -1,0 +1,15 @@
+<div 
+    class="team-preview-card"
+    [routerLink]="['/team', teamInfo?.team?.id]"
+    [state]="{ teamInfo: teamInfo }"
+>
+    <div class="team-logo">
+        <img [src]="teamInfo?.team?.logo" alt="Team logo">
+    </div>
+    <h3 class="team-name">
+        {{ teamInfo?.team?.name || 'Team name' }}
+    </h3>
+    <p class="team-country">
+        {{ teamInfo?.team?.country || 'Team country'}}
+    </p>
+</div>

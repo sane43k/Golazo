@@ -1,0 +1,21 @@
+<div class="teams-section">
+    <div class="container">
+        <h2>{{ header }}</h2>
+        <input 
+            type="text"
+            class="custom-input"
+            placeholder="Search by name or country"
+            [formControl]="searchTeamByName"
+        >
+        <app-status 
+            *ngIf="loading || teamsInfo.length === 0" 
+            [status]="loading ? 'Loading...' : 'Nothing found'"
+        ></app-status>
+        <div class="teams-list">
+            <app-team-preview-card
+                *ngFor="let teamInfo of teamsInfo"
+                [teamInfo]="teamInfo"
+            ></app-team-preview-card>
+        </div>
+    </div>
+</div>

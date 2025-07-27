@@ -1,6 +1,22 @@
 # Golazo
 
+Follow current football with Golazo
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+
+## Install dependencies
+
+```
+npm install
+```
+
+## API
+
+* [Site](https://www.api-football.com/)
+* [Documentation
+  ](https://www.api-football.com/documentation-v3)
+
+  Paste your **x-apisports-key** into the corresponding property in the **football.service.ts**
 
 ## Development server
 

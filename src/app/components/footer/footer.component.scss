@@ -1,0 +1,19 @@
+.footer-section {
+    height: 300px;
+    width: 100%;
+    background-color: var(--black);
+    .container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        .contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+    }
+}

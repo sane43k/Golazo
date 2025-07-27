@@ -1,0 +1,9 @@
+@mixin font-face($weight-name, $font-weight) {
+    @font-face {
+        font-family: Roboto;
+        src: url(../fonts/Roboto-#{$weight-name}.ttf);
+        font-weight: $font-weight;
+        font-style: normal;
+        font-display: swap;
+    }
+}

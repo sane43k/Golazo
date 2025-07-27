@@ -1,0 +1,35 @@
+.team {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    &__logo {
+        height: auto;
+        width: 200px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__name-info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    &__name {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        p {
+            font-size: 16px;
+        }
+    }
+}

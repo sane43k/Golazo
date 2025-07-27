@@ -1,0 +1,24 @@
+.matches-section {
+    width: 100%;
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        h2 {
+            font-size: 30px;
+        }
+        .live {
+            color: var(--white);
+            width: 92px;
+            background-color: var(--red);
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .matches-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+    }
+}

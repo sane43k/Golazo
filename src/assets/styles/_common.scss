@@ -1,0 +1,96 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+    color: var(--white);
+    background-color: var(--gray);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    max-width: 1270px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+h1,.h1-46pt {
+    font-size: 46px;
+    font-weight: 600;
+}
+
+h2,.h2-38pt {
+    font-size: 38px;
+    font-weight: 600;
+}
+
+ul, ol, ul li, ol li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.link {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+    &:hover {
+        opacity: 0.7;
+    }
+    &:active {
+        opacity: initial;
+    }
+}
+
+.text-18pt {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.text-slogan {
+    font-size: 30px;
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 15px;
+}
+
+// ::-webkit-scrollbar {
+//     height: 5px;
+//     width: 5px;
+// }
+// ::-webkit-scrollbar-track {
+//     background-color: transparent;
+//     border-radius: 10px;
+// }
+// ::-webkit-scrollbar-thumb {
+//     background-color: var(--green-light);
+//     border-radius: 10px;
+//     &:hover {
+//         background-color: var(--green);
+//     }
+// }

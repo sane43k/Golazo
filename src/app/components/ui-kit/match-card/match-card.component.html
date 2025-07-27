@@ -1,0 +1,30 @@
+<div class="match-card">
+    <div class="league">
+        <div class="image-wrapper">
+            <img [src]="match?.league?.logo" alt="League logo">
+        </div>
+        <h3>{{ match?.league?.name || 'League name' }}</h3>
+    </div>
+    <div class="match">
+        <div class="match__team">
+            <div class="image-wrapper">
+                <img [src]="match?.teams?.home?.logo" alt="Home logo">
+            </div>
+            <p>{{ match?.teams?.home?.name || 'Home name' }}</p>
+        </div>
+        <div class="match__info">
+            <div class="minute">{{ match?.fixture?.status?.elapsed || 'Current minute' }}'</div>
+            <div class="score">
+                <p>{{ match?.goals?.home || 0 }}</p>
+                <p>:</p>
+                <p>{{ match?.goals?.away || 0 }}</p>
+            </div>
+        </div>
+        <div class="match__team">
+            <div class="image-wrapper">
+                <img [src]="match?.teams?.away?.logo" alt="Away logo">
+            </div>
+            <p>{{ match?.teams?.away?.name || 'Away name' }}</p>
+        </div>
+    </div>
+</div>

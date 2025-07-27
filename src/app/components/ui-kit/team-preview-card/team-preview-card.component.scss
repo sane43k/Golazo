@@ -1,0 +1,32 @@
+.team-preview-card {
+    height: 100px;
+    background-color: var(--gray-dark);
+    box-shadow: 0 0 7px var(--gray-dark);
+    border-radius: 10px;
+    padding: 30px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    cursor: pointer;
+    transition: all .2s linear;
+    &:hover {
+        opacity: 0.7;
+    }
+    &:active {
+        opacity: 1;
+    }
+    .team-logo {
+        height: 40px;
+        width: 40px;
+    }
+    .team-country {
+        font-size: 14px;
+        text-align: right;
+        width: 100px;
+    }
+    img {
+        height: 100%;
+        width: 100%;
+    }
+}

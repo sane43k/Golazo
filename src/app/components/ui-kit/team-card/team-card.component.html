@@ -1,0 +1,31 @@
+<div class="team">
+    <div class="team__logo">
+        <img [src]="teamInfo?.team?.logo" alt="Team logo">
+    </div>
+    <div class="team__name-info">
+        <div class="team__name">
+            <h2>{{ teamInfo?.team?.name || 'Team name' }}</h2>
+            <!-- <button type="button" title="Add to Favorites">⭐</button> -->
+        </div>
+        <div class="team__info">
+            <p>Country: 
+                <strong>{{ teamInfo?.team?.country || 'Team country' }}</strong>
+            </p>
+            <p>City: 
+                <strong>{{ teamInfo?.venue?.city || 'Team city' }}</strong>
+            </p>
+            <p>Founded: 
+                <strong>{{ teamInfo?.team?.founded || 'Team founded'}}</strong>
+            </p>
+            <p>Stadium: 
+                <strong>{{ teamInfo?.venue?.name || 'Team stadium' }}</strong>
+            </p>
+            <p>Capacity: 
+                <strong>{{ teamInfo?.venue?.capacity || 'Stadium capacity' }}</strong>
+            </p>
+            <p>Address: 
+                <strong>{{ teamInfo?.venue?.address || 'Stadium address' }}</strong>
+            </p>
+        </div>
+    </div>
+</div>
