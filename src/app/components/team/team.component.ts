@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeamCardComponent } from "../ui-kit/team-card/team-card.component";
-import { ITeamInfo } from '../../interfaces/team.interface';
 import { ActivatedRoute } from '@angular/router';
-import { FootballService } from '../../services/football.service';
-import { Location, NgIf } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { StatusComponent } from "../ui-kit/status/status.component";
+import { Store } from '@ngrx/store';
+import { searchTeamByID } from '../../store/teams/teams.actions';
+import { Observable } from 'rxjs';
+import { TeamsState } from '../../store/teams/teams.reducer';
+import { selectTeamsState } from '../../store/teams/teams.selectors';
 
 @Component({
   selector: 'app-team',
@@ -13,53 +15,29 @@ import { StatusComponent } from "../ui-kit/status/status.component";
   imports: [
     TeamCardComponent,
     StatusComponent,
-    NgIf
+    NgIf,
+    AsyncPipe,
 ],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss'
 })
-export class TeamComponent implements OnInit, OnDestroy {
-  loading: boolean = false;
-  teamInfo?: ITeamInfo;
-
-  private teamID: string | null = '';
-  private subscription!: Subscription;
+export class TeamComponent implements OnInit {
+  teamsState$?: Observable<TeamsState>;
 
   constructor(
+    private store: Store,
     private router: ActivatedRoute,
-    private footballService: FootballService,
-    private location: Location
   ) { };
 
   ngOnInit(): void {
-    this.loading = true;
+    let teamID: string | null = this.getTeamID();
 
-    // this.getTeamIDFromData();
-    this.getTeamID();
-    this.subscription = this.footballService.getTeamInfoByID(this.teamID)
-      .subscribe(res => {
-        this.teamInfo = res.response[0];
-        this.loading = false;
-      });
-
-    // this.teamInfo = (this.location.getState() as { teamInfo: ITeamInfo })?.teamInfo;
-    // this.loading = false;
+    this.store.dispatch(searchTeamByID({ teamID }));
+    this.teamsState$ = this.store.select(selectTeamsState);
   };
 
   getTeamID() {
-    this.teamID = this.router.snapshot.paramMap.get('id');
-
-    // this.router.paramMap.subscribe(params => {
-    //   this.teamID = params.get('id');
-    // });
+    return this.router.snapshot.paramMap.get('id');
   };
-
-  getTeamIDFromData() {
-    this.teamID = this.router.snapshot.data['teamID'];
-  };
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
 }

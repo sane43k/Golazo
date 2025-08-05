@@ -16,7 +16,7 @@ npm install
 * [Documentation
   ](https://www.api-football.com/documentation-v3)
 
-  Paste your **x-apisports-key** into the corresponding property in the **football.service.ts**
+  Paste your **x-apisports-key** into the corresponding property in the src\app\services\football.service.ts
 
 ## Development server
 

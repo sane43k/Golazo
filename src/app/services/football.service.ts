@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, Observable } from 'rxjs';
 import { ILiveMatchApiResponse } from '../interfaces/match.interface';
-import { ITeamInfoApiResponse } from '../interfaces/team.interface';
+import { ITeamInfoApiResponse, ITeamSquadApiResponse } from '../interfaces/team.interface';
 import { FormControl } from '@angular/forms';
+import { IPlayerProfileApiResponse } from '../interfaces/player.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { FormControl } from '@angular/forms';
 export class FootballService {
   private apiUrl: string = 'https://v3.football.api-sports.io';
   private headers: HttpHeaders = new HttpHeaders({
-    'x-apisports-key': 'Paste your x-apisports-key',
+    'x-apisports-key': 'Paste your x-apisports-key here',
   });
 
   constructor(private http: HttpClient) { };
@@ -19,6 +20,15 @@ export class FootballService {
   getLiveMatches(): Observable<ILiveMatchApiResponse> {
     return this.http.get<ILiveMatchApiResponse>(
       `${this.apiUrl}/fixtures?live=all`,
+      {
+        headers: this.headers
+      }
+    );
+  };
+
+  getTeamsInfoByName(teamName: FormControl): Observable<ITeamInfoApiResponse> {
+    return this.http.get<ITeamInfoApiResponse>(
+      `${this.apiUrl}/teams?search=${teamName}`,
       {
         headers: this.headers
       }
@@ -34,13 +44,22 @@ export class FootballService {
     );
   };
 
-  getTeamsInfoByName(teamName: FormControl): Observable<ITeamInfoApiResponse> {
-    return this.http.get<ITeamInfoApiResponse>(
-      `${this.apiUrl}/teams?search=${teamName}`,
+  getTeamSquadByID(teamID: string | null): Observable<ITeamSquadApiResponse> {
+    return this.http.get<ITeamSquadApiResponse>(
+      `${this.apiUrl}/players/squads?team=${teamID}`,
       {
         headers: this.headers
       }
-    );
+    )
   };
+
+  getPlayerProfileByID(playerID: string | null): Observable<IPlayerProfileApiResponse> {
+    return this.http.get<IPlayerProfileApiResponse>(
+      `${this.apiUrl}/players/profiles?player=${playerID}`,
+      {
+        headers: this.headers
+      }
+    )
+  }
 
 }

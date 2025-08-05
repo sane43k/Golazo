@@ -1,0 +1,18 @@
+<section class="player-section">
+    <div class="container">
+        <ng-container *ngIf="playerState$ | async as playerState">
+            <app-status 
+                *ngIf="playerState.loading || !playerState.player"
+                [status]="playerState.loading 
+                    ? 'Loading...' 
+                    : playerState.error
+                        ? playerState.error.statusText
+                        : 'Nothing found'"
+            ></app-status>
+            <app-player-card
+                *ngIf="playerState.player"
+                [playerProfile]="playerState.player"
+            ></app-player-card>
+        </ng-container>
+    </div>
+</section>

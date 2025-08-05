@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './status.component.scss'
 })
 export class StatusComponent {
-  @Input() status: 'Loading...' | 'Nothing found' = 'Loading...';
+  @Input() status: string = 'Loading...';
 }

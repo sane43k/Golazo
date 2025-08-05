@@ -1,10 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatchCardComponent } from "../ui-kit/match-card/match-card.component";
-import { FootballService } from '../../services/football.service';
-import { ILiveMatch } from '../../interfaces/match.interface';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { StatusComponent } from "../ui-kit/status/status.component";
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectMatchesState } from '../../store/matches/matches.selectors';
+import { loadMatches } from '../../store/matches/matches.actions';
+import { MatchesState } from '../../store/matches/matches.reducer';
 
 @Component({
   selector: 'app-matches',
@@ -14,31 +16,21 @@ import { Subscription } from 'rxjs';
     NgFor,
     NgIf,
     NgClass,
-    StatusComponent
+    StatusComponent,
+    AsyncPipe
   ],
   templateUrl: './matches.component.html',
   styleUrl: './matches.component.scss'
 })
-export class MatchesComponent implements OnInit, OnDestroy {
+export class MatchesComponent implements OnInit {
   @Input() header: string = '';
-  loading: boolean = false;
-  matches: ILiveMatch[] = [];
+  matchesState$?: Observable<MatchesState>;
 
-  private subscription!: Subscription;
-
-  constructor(private footballService: FootballService) { };
+  constructor(private store: Store) { };
 
   ngOnInit(): void {
-    this.loading = true;
-    this.subscription = this.footballService.getLiveMatches()
-      .subscribe(res => {
-        this.matches = res.response;
-        this.loading = false;
-      });
+    this.store.dispatch(loadMatches());
+    this.matchesState$ = this.store.select(selectMatchesState);
   };
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
 }

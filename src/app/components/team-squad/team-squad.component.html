@@ -1,0 +1,20 @@
+<section class="team-squad-section">
+    <div class="container">
+        <ng-container *ngIf="teamSquadState$ | async as teamSquadState">
+            <app-status 
+                *ngIf="teamSquadState.loading || !teamSquadState.teamSquad"
+                [status]="teamSquadState.loading 
+                    ? 'Loading...' 
+                    : teamSquadState.error
+                        ? teamSquadState.error.statusText
+                        : 'Nothing found'"
+            ></app-status>
+            <div class="players-list">
+                <app-player-preview-card
+                    *ngFor="let teamPlayer of teamSquadState.teamSquad?.players"
+                    [teamPlayer]="teamPlayer"
+                ></app-player-preview-card>
+            </div>
+        </ng-container>
+    </div>
+</section>

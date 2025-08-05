@@ -1,12 +1,18 @@
-<div class="team-section">
+<section class="team-section">
     <div class="container">
-        <app-status
-            *ngIf="loading || !teamInfo"
-            [status]="loading ? 'Loading...' : 'Nothing found'"
-        ></app-status>
-        <app-team-card 
-            *ngIf="teamInfo"
-            [teamInfo]="teamInfo"
-        ></app-team-card>
+        <ng-container *ngIf="teamsState$ | async as teamsState">
+            <app-status 
+                *ngIf="teamsState.loading || teamsState.teams.length === 0"
+                [status]="teamsState.loading 
+                    ? 'Loading...' 
+                    : teamsState.error
+                        ? teamsState.error.statusText
+                        : 'Nothing found'"
+            ></app-status>
+            <app-team-card 
+                *ngIf="teamsState.teams.length > 0"
+                [teamInfo]="teamsState.teams[0]"
+            ></app-team-card>
+        </ng-container>
     </div>
-</div>
+</section>

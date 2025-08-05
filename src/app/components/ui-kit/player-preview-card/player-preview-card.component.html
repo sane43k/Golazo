@@ -1,0 +1,21 @@
+<div 
+    class="player-preview-card"
+    [routerLink]="['/player', teamPlayer?.id]"
+>
+    <div class="player-info">
+        <div class="player-photo">
+            <img [src]="teamPlayer?.photo" alt="Player photo">
+        </div>
+        <div class="player-name-position">
+            <h3 class="player-name">
+                {{ teamPlayer?.name || 'Player name' }}
+            </h3>
+            <p class="player-position">
+                {{ teamPlayer?.position || 'Player position' }}
+            </p>
+        </div>
+    </div>
+    <p class="player-number">
+        {{ teamPlayer?.number || 'Player number' }}
+    </p>
+</div>

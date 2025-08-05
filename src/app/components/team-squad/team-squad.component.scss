@@ -1,0 +1,11 @@
+.team-squad-section {
+    width: 100%;
+    .container {
+        .players-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+    }
+}

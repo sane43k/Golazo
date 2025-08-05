@@ -1,0 +1,45 @@
+<div class="player">
+    <div class="player__photo">
+        <img [src]="playerProfile?.photo" alt="Player photo">
+    </div>
+    <div class="player__name-info">
+        <div class="player__name">
+            <h2>{{ playerProfile?.name || 'Player name' }}</h2>
+        </div>
+        <div class="player__info">
+            <p>First name:
+                <strong>{{ playerProfile?.firstname || 'Player first name' }}</strong>
+            </p>
+            <p>Last name:
+                <strong>{{ playerProfile?.lastname || 'Player last name' }}</strong>
+            </p>
+            <p>Age:
+                <strong>{{ playerProfile?.age || 'Player age' }}</strong>
+            </p>
+            <p>Birthday:
+                <strong>{{ playerProfile?.birth?.date || 'Player birthday' }}</strong>
+            </p>
+            <p>Country:
+                <strong>{{ playerProfile?.birth?.country || 'Player country' }}</strong>
+            </p>
+            <p>City:
+                <strong>{{ playerProfile?.birth?.place || 'Player city' }}</strong>
+            </p>
+            <p>Nationality:
+                <strong>{{ playerProfile?.nationality || 'Player nationality' }}</strong>
+            </p>
+            <p>Height:
+                <strong>{{ playerProfile?.height || 'Player height' }}</strong>
+            </p>
+            <p>Weight:
+                <strong>{{ playerProfile?.weight || 'Player weight' }}</strong>
+            </p>
+            <p>Number:
+                <strong>{{ playerProfile?.number || 'Player number' }}</strong>
+            </p>
+            <p>Position:
+                <strong>{{ playerProfile?.position || 'Player position' }}</strong>
+            </p>
+        </div>
+    </div>
+</div>

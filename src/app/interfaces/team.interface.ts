@@ -1,3 +1,5 @@
+import { IPlayerPreview } from "./player.interface";
+
 export interface ITeamInfoApiResponse {
     response: ITeamInfo[];
 };
@@ -22,44 +24,56 @@ export interface ITeamInfo {
     };
 };
 
-export interface ITeamStatsApiResponse {
-    response: ITeamStats;
+export interface ITeamSquadApiResponse {
+    response: ITeamSquad[];
 };
-export interface ITeamStats {
-    league: {
-        id: number;
-        name: string;
-        country: string;
-        logo: string;
-        flag: string;
-        season: number;
-    };
+export interface ITeamSquad {
     team: {
         id: number;
         name: string;
         logo: string;
     };
-    form: string;
-    fixtures: {
-        played: {
-            home: number;
-            away: number;
-            total: number;
-        };
-        wins: {
-            home: number;
-            away: number;
-            total: number;
-        };
-        draws: {
-            home: number;
-            away: number;
-            total: number;
-        };
-        loses: {
-            home: number;
-            away: number;
-            total: number;
-        };
-    };
+    players: IPlayerPreview[];
 };
+
+// export interface ITeamStatsApiResponse {
+//     response: ITeamStats;
+// };
+// export interface ITeamStats {
+//     league: {
+//         id: number;
+//         name: string;
+//         country: string;
+//         logo: string;
+//         flag: string;
+//         season: number;
+//     };
+//     team: {
+//         id: number;
+//         name: string;
+//         logo: string;
+//     };
+//     form: string;
+//     fixtures: {
+//         played: {
+//             home: number;
+//             away: number;
+//             total: number;
+//         };
+//         wins: {
+//             home: number;
+//             away: number;
+//             total: number;
+//         };
+//         draws: {
+//             home: number;
+//             away: number;
+//             total: number;
+//         };
+//         loses: {
+//             home: number;
+//             away: number;
+//             total: number;
+//         };
+//     };
+// };

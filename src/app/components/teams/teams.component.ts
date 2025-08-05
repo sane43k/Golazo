@@ -1,11 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FootballService } from '../../services/football.service';
-import { ITeamInfo } from '../../interfaces/team.interface';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { StatusComponent } from "../ui-kit/status/status.component";
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
 import { TeamPreviewCardComponent } from "../ui-kit/team-preview-card/team-preview-card.component";
+import { Store } from '@ngrx/store';
+import { searchTeamsByName } from '../../store/teams/teams.actions';
+import { TeamsState } from '../../store/teams/teams.reducer';
+import { selectTeamsState } from '../../store/teams/teams.selectors';
 
 @Component({
   selector: 'app-teams',
@@ -17,6 +19,7 @@ import { TeamPreviewCardComponent } from "../ui-kit/team-preview-card/team-previ
     FormsModule,
     ReactiveFormsModule,
     StatusComponent,
+    AsyncPipe
   ],
   templateUrl: './teams.component.html',
   styleUrl: './teams.component.scss'
@@ -24,13 +27,12 @@ import { TeamPreviewCardComponent } from "../ui-kit/team-preview-card/team-previ
 
 export class TeamsComponent implements OnInit, OnDestroy {
   @Input() header: string = '';
-  loading: boolean = false;
   searchTeamByName: FormControl = new FormControl('');
-  teamsInfo: ITeamInfo[] = [];
+  teamsState$?: Observable<TeamsState>;
 
-  private destroy$: Subject<void> = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
-  constructor(private footballService: FootballService) { };
+  constructor(private store: Store) { };
 
   ngOnInit(): void {
     this.searchTeamByName.valueChanges
@@ -39,15 +41,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(teamName => {
-        this.loading = true;
-        this.footballService.getTeamsInfoByName(teamName)
-          .pipe(
-            takeUntil(this.destroy$),
-          )
-          .subscribe(res => {
-            this.teamsInfo = res.response
-            this.loading = false;
-          });
+        this.store.dispatch(searchTeamsByName({ teamName }));
+        this.teamsState$ = this.store.select(selectTeamsState);        
       });
   };
 

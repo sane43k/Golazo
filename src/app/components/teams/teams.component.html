@@ -1,4 +1,4 @@
-<div class="teams-section">
+<section class="teams-section">
     <div class="container">
         <h2>{{ header }}</h2>
         <input 
@@ -7,15 +7,21 @@
             placeholder="Search by name or country"
             [formControl]="searchTeamByName"
         >
-        <app-status 
-            *ngIf="loading || teamsInfo.length === 0" 
-            [status]="loading ? 'Loading...' : 'Nothing found'"
-        ></app-status>
-        <div class="teams-list">
-            <app-team-preview-card
-                *ngFor="let teamInfo of teamsInfo"
-                [teamInfo]="teamInfo"
-            ></app-team-preview-card>
-        </div>
+        <ng-container *ngIf="teamsState$ | async as teamsState">
+            <app-status 
+                *ngIf="teamsState.loading || teamsState.teams.length === 0"
+                [status]="teamsState.loading 
+                    ? 'Loading...' 
+                    : teamsState.error
+                        ? teamsState.error.statusText
+                        : 'Nothing found'"
+            ></app-status>
+            <div class="teams-list">
+                <app-team-preview-card
+                    *ngFor="let teamInfo of teamsState.teams"
+                    [teamInfo]="teamInfo"
+                ></app-team-preview-card>
+            </div>
+        </ng-container>
     </div>
-</div>
+</section>

@@ -1,20 +1,21 @@
-<div class="matches-section">
+<section class="matches-section">
     <div class="container">
         <h2 [ngClass]="{'live': header === 'LIVE'}">{{ header }}</h2>
-        <app-status 
-            *ngIf="loading || matches.length === 0"
-            [status]="loading ? 'Loading...' : 'Nothing found'"
-        ></app-status>
-        <div class="matches-list">
-            <app-match-card 
-                *ngFor="let match of matches"
-                [match] = "match" 
-            ></app-match-card>
-            <!-- <app-match-card></app-match-card>
-            <app-match-card></app-match-card>
-            <app-match-card></app-match-card>
-            <app-match-card></app-match-card>
-            <app-match-card></app-match-card> -->
-        </div>
+        <ng-container *ngIf="matchesState$ | async as matchesState">
+            <app-status 
+                *ngIf="matchesState.loading || matchesState.matches.length === 0"
+                [status]="matchesState.loading 
+                    ? 'Loading...' 
+                    : matchesState.error
+                        ? matchesState.error.statusText
+                        : 'Nothing found'"
+            ></app-status>
+            <div class="matches-list">
+                <app-match-card 
+                    *ngFor="let match of matchesState.matches"
+                    [match] = "match" 
+                ></app-match-card>
+            </div>
+        </ng-container>
     </div>
-</div>
+</section>

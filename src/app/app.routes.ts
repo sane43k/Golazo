@@ -16,14 +16,19 @@ export const routes: Routes = [
                 path: 'teams-list',
                 loadComponent: () => import('./pages/teams-list-page/teams-list-page.component')
                     .then(c => c.TeamsListPageComponent),
+                title: 'Teams - Golazo',
             },
             {
                 path: 'team/:id',
                 loadComponent: () => import('./pages/team-page/team-page.component')
                     .then(c => c.TeamPageComponent),
-                data: {
-                    teamID: '1' 
-                },
+                title: 'Team - Golazo',
+            },
+            {
+                path: 'player/:id',
+                loadComponent: () => import('./pages/player-page/player-page.component')
+                    .then(c => c.PlayerPageComponent),
+                title: 'Player - Golazo',
             },
         ]
     }
