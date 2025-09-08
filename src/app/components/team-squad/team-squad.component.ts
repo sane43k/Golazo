@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StatusComponent } from "../ui-kit/status/status.component";
 import { PlayerPreviewCardComponent } from "../ui-kit/player-preview-card/player-preview-card.component";
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
@@ -23,6 +23,8 @@ import { selectTeamSquadState } from '../../store/team-squad/team-squad.selector
   styleUrl: './team-squad.component.scss'
 })
 export class TeamSquadComponent {
+  @Input() teamID: string = '';
+
   teamSquadState$?: Observable<TeamSquadState>;
 
   constructor(
@@ -31,14 +33,12 @@ export class TeamSquadComponent {
   ) { };
 
   ngOnInit(): void {
-    let teamID: string | null = this.getTeamID();
-
-    this.store.dispatch(searchTeamSquadByTeamID({ teamID }));
+    this.store.dispatch(searchTeamSquadByTeamID({ teamID: this.getTeamID() }));
     this.teamSquadState$ = this.store.select(selectTeamSquadState);
   };
 
   getTeamID() {
-    return this.router.snapshot.paramMap.get('id');
+    return this.router.snapshot.paramMap.get('id') || this.teamID;
   };
   
 }

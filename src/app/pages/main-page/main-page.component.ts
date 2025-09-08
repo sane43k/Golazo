@@ -8,7 +8,7 @@ import { MatchesComponent } from "../../components/matches/matches.component";
   imports: [
     MainComponent,
     MatchesComponent
-],
+  ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })

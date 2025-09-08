@@ -1,0 +1,21 @@
+.chart-wrapper {
+    .league {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .image-wrapper {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                height: auto;
+                width: 100%;
+            }
+        }
+        h3 {
+            font-size: 22px;
+        }
+    }
+}

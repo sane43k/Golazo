@@ -2,26 +2,28 @@
     <div class="container">
         <h2>{{ header }}</h2>
         <input 
+            *ngIf="isTeamsSearch"
             type="text"
             class="custom-input"
             placeholder="Search by name or country"
             [formControl]="searchTeamByName"
         >
-        <ng-container *ngIf="teamsState$ | async as teamsState">
-            <app-status 
-                *ngIf="teamsState.loading || teamsState.teams.length === 0"
-                [status]="teamsState.loading 
-                    ? 'Loading...' 
-                    : teamsState.error
-                        ? teamsState.error.statusText
-                        : 'Nothing found'"
-            ></app-status>
-            <div class="teams-list">
-                <app-team-preview-card
-                    *ngFor="let teamInfo of teamsState.teams"
-                    [teamInfo]="teamInfo"
-                ></app-team-preview-card>
-            </div>
-        </ng-container>
+        <app-status 
+            *ngIf="(loading$ | async) || (teams$ | async)?.length === 0"
+            [status]="(loading$ | async) 
+                ? 'Loading...' 
+                : (error$ | async)
+                    ? (error$ | async)?.statusText
+                    : 'Nothing found'"
+        ></app-status>
+        <div 
+            *ngIf="teams$ | async as teams"
+            class="teams-list"
+        >
+            <app-team-preview-card
+                *ngFor="let teamInfo of teams"
+                [teamInfo]="teamInfo"
+            ></app-team-preview-card>
+        </div>
     </div>
 </section>

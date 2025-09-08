@@ -2,12 +2,13 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { StatusComponent } from "../ui-kit/status/status.component";
-import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
+import { debounceTime, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TeamPreviewCardComponent } from "../ui-kit/team-preview-card/team-preview-card.component";
 import { Store } from '@ngrx/store';
 import { searchTeamsByName } from '../../store/teams/teams.actions';
-import { TeamsState } from '../../store/teams/teams.reducer';
-import { selectTeamsState } from '../../store/teams/teams.selectors';
+import { selectFavoriteTeams, selectTeams, selectTeamsFailure, selectTeamsLoading } from '../../store/teams/teams.selectors';
+import { ITeamInfo } from '../../interfaces/team.interface';
+import { TrimPipe } from '../../pipes/trim.pipe';
 
 @Component({
   selector: 'app-teams',
@@ -19,31 +20,50 @@ import { selectTeamsState } from '../../store/teams/teams.selectors';
     FormsModule,
     ReactiveFormsModule,
     StatusComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './teams.component.html',
-  styleUrl: './teams.component.scss'
+  styleUrl: './teams.component.scss',
+  providers: [TrimPipe]
 })
 
 export class TeamsComponent implements OnInit, OnDestroy {
   @Input() header: string = '';
-  searchTeamByName: FormControl = new FormControl('');
-  teamsState$?: Observable<TeamsState>;
+  @Input() isTeamsSearch: boolean = false;
 
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store) { };
+  searchTeamByName: FormControl = new FormControl('');
+
+  teams$?: Observable<ITeamInfo[]>;
+  loading$?: Observable<boolean>;
+  error$?: Observable<any>;
+
+  constructor(
+    private store: Store,
+    private trimPipe: TrimPipe,
+  ) { };
 
   ngOnInit(): void {
-    this.searchTeamByName.valueChanges
-      .pipe(
-        debounceTime(1000),
-        takeUntil(this.destroy$),
-      )
-      .subscribe(teamName => {
-        this.store.dispatch(searchTeamsByName({ teamName }));
-        this.teamsState$ = this.store.select(selectTeamsState);        
-      });
+    this.loading$ = this.store.select(selectTeamsLoading)
+    this.error$ = this.store.select(selectTeamsFailure);
+
+    if (this.isTeamsSearch) {
+      this.searchTeamByName.valueChanges
+        .pipe(
+          debounceTime(1000),
+          map(value => this.trimPipe.transform(value)),
+          takeUntil(this.destroy$),
+        )
+        .subscribe(teamName => {
+          this.store.dispatch(searchTeamsByName({ teamName }));
+          this.teams$ = this.store.select(selectTeams);
+          
+          this.searchTeamByName.setValue(teamName, { emitEvent: false });
+        });
+    } else {
+      this.teams$ = this.store.select(selectFavoriteTeams);
+    }
   };
 
   ngOnDestroy(): void {

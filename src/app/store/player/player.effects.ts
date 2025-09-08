@@ -20,5 +20,17 @@ export class PlayerEffects {
             )
         )
     );
+
+    searchPlayerStatsByIDAndSeason$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(PlayerAction.searchPlayerStatsByIDAndSeason),
+            mergeMap(action => 
+                this.footballService.getPlayerStatsByIDAndSeason(action.playerID, action.playerSeason).pipe(
+                    map(res => PlayerAction.loadPlayerStatsSuccess({ statistics: res.response[0].statistics })),
+                    catchError(error => of(PlayerAction.loadPlayerStatsFailure({ error })))
+                )
+            )
+        )
+    );
     
 }

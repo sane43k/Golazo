@@ -8,6 +8,11 @@ export const selectPlayer = createSelector(
     state => state.player
 );
 
+export const selectPlayerStatistics = createSelector(
+    selectPlayerState,
+    state => state.statistics
+);
+
 export const selectPlayerLoading = createSelector(
     selectPlayerState,
     state => state.loading

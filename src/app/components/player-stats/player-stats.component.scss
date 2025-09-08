@@ -1,0 +1,10 @@
+.player-stats-section {
+    width: 100%;
+    .container {
+        .stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+    }
+}

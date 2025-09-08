@@ -1,0 +1,12 @@
+<button 
+    type="button"
+    class="accordion-btn"
+    title="Toggle Dropdown"
+    (click)="toggleAccordion($event)"
+>
+    <img 
+        src="/assets/images/icons/arrow-down_white_24x24.png" 
+        alt="Dropdown Button"
+        [ngClass]="{'open': isOpen}"
+    >
+</button>

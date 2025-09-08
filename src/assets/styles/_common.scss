@@ -79,6 +79,24 @@ ul, ol, ul li, ol li {
     letter-spacing: 15px;
 }
 
+.dark-ngx-charts {
+    .ngx-charts {
+        text {
+            font-size: 22px;
+            fill: var(--white);
+        }
+        .ng-star-inserted {
+            font-size: 14px;
+        }
+        .textDataLabel {
+            font-size: 12px;
+        }
+        .gridline-path {
+            stroke: var(--gray-transparent);
+        }
+    }
+}
+
 // ::-webkit-scrollbar {
 //     height: 5px;
 //     width: 5px;

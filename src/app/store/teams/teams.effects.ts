@@ -2,17 +2,17 @@ import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { FootballService } from "../../services/football.service";
 import * as TeamsActions from "./teams.actions";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { catchError, map, mergeMap, of, tap } from "rxjs";
 
 @Injectable()
 export class TeamsEffects {
     private actions$ = inject(Actions);
     private footballService = inject(FootballService);
 
-    searchTeamsByName$ = createEffect(() => 
+    searchTeamsByName$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TeamsActions.searchTeamsByName),
-            mergeMap(action => 
+            mergeMap(action =>
                 this.footballService.getTeamsInfoByName(action.teamName).pipe(
                     map(res => TeamsActions.loadTeamsSuccess({ teams: res.response })),
                     catchError(error => of(TeamsActions.loadTeamsFailure({ error })))
@@ -21,10 +21,10 @@ export class TeamsEffects {
         )
     );
 
-    searchTeamByID$ = createEffect(() => 
+    searchTeamByID$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TeamsActions.searchTeamByID),
-            mergeMap(action => 
+            mergeMap(action =>
                 this.footballService.getTeamInfoByID(action.teamID).pipe(
                     map(res => TeamsActions.loadTeamsSuccess({ teams: res.response })),
                     catchError(error => of(TeamsActions.loadTeamsFailure({ error })))

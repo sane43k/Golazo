@@ -1,15 +1,34 @@
-<div 
-    class="team-preview-card"
-    [routerLink]="['/team', teamInfo?.team?.id]"
-    [state]="{ teamInfo: teamInfo }"
->
-    <div class="team-logo">
-        <img [src]="teamInfo?.team?.logo" alt="Team logo">
+<div class="team-preview-card">
+    <div 
+        class="team"
+        [routerLink]="['/team', teamInfo?.team?.id]"
+        [state]="{ teamInfo: teamInfo }"
+    >
+        <div class="team-info">
+            <div class="team-logo">
+                <img [src]="teamInfo?.team?.logo" alt="Team logo">
+            </div>
+            <div class="team-name-country">
+                <h3 class="team-name">
+                    {{ teamInfo?.team?.name || 'Team name' }}
+                </h3>
+                <p class="team-country">
+                    {{ teamInfo?.team?.country || 'Team country' }}
+                </p>
+            </div>
+        </div>
+        <div class="btns-wrapper">
+            <app-accordion-btn
+                [isOpen]="isSquadOpen"
+                (isOpenChange)="isSquadOpen = $event"
+            ></app-accordion-btn>
+            <app-fav-btn 
+                [teamInfo]="teamInfo"
+            ></app-fav-btn>
+        </div>
     </div>
-    <h3 class="team-name">
-        {{ teamInfo?.team?.name || 'Team name' }}
-    </h3>
-    <p class="team-country">
-        {{ teamInfo?.team?.country || 'Team country' }}
-    </p>
+    <app-team-squad 
+        *ngIf="isSquadOpen"
+        [teamID]="teamInfo?.team?.id?.toString() || ''"
+    ></app-team-squad>
 </div>

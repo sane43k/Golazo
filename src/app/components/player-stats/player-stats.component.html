@@ -1,0 +1,21 @@
+<section class="player-stats-section">
+    <div class="container">
+        <app-status 
+            *ngIf="(loading$ | async) || (statistics$ | async)?.length === 0"
+            [status]="(loading$ | async) 
+                ? 'Loading...' 
+                : (error$ | async)
+                    ? (error$ | async)?.statusText
+                    : 'Nothing found'"
+        ></app-status>
+        <div 
+            class="stats-list" 
+            *ngIf="statistics$ | async as statistics"
+        >
+            <app-bar-chart 
+                *ngFor="let playerStats of statistics" 
+                [playerStats]="playerStats"
+            ></app-bar-chart>
+        </div>
+    </div>
+</section>

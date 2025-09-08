@@ -1,0 +1,13 @@
+<button 
+    type="button"
+    class="fav-btn"
+    title="Toggle Favorites"
+    (click)="toggleTeamToFavorites($event)"
+>
+    <img 
+        [src]="isFavorite 
+            ? '/assets/images/icons/star_yellow_24x24.png' 
+            : '/assets/images/icons/star_24x24.png'"
+        [alt]="isFavorite ? 'Favorite' : 'Not Favorite'"
+    >
+</button>

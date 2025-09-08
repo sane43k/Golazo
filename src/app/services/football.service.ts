@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ILiveMatchApiResponse } from '../interfaces/match.interface';
 import { ITeamInfoApiResponse, ITeamSquadApiResponse } from '../interfaces/team.interface';
-import { FormControl } from '@angular/forms';
-import { IPlayerProfileApiResponse } from '../interfaces/player.interface';
+import { IPlayerProfileApiResponse, IPlayerStatsApiResponse } from '../interfaces/player.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class FootballService {
     );
   };
 
-  getTeamsInfoByName(teamName: FormControl): Observable<ITeamInfoApiResponse> {
+  getTeamsInfoByName(teamName: string): Observable<ITeamInfoApiResponse> {
     return this.http.get<ITeamInfoApiResponse>(
       `${this.apiUrl}/teams?search=${teamName}`,
       {
@@ -50,7 +49,7 @@ export class FootballService {
       {
         headers: this.headers
       }
-    )
+    );
   };
 
   getPlayerProfileByID(playerID: string | null): Observable<IPlayerProfileApiResponse> {
@@ -59,7 +58,16 @@ export class FootballService {
       {
         headers: this.headers
       }
-    )
-  }
+    );
+  };
+
+  getPlayerStatsByIDAndSeason(playerID: string | null, playerSeason: string | null): Observable<IPlayerStatsApiResponse> {
+    return this.http.get<IPlayerStatsApiResponse>(
+      `${this.apiUrl}/players?id=${playerID}&season=${playerSeason}`,
+      {
+        headers: this.headers
+      }
+    );
+  };
 
 }

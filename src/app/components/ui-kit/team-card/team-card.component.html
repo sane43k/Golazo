@@ -5,7 +5,9 @@
     <div class="team__name-info">
         <div class="team__name">
             <h2>{{ teamInfo?.team?.name || 'Team name' }}</h2>
-            <!-- <button type="button" title="Add to Favorites">⭐</button> -->
+            <app-fav-btn 
+                [teamInfo]="teamInfo"
+            ></app-fav-btn>
         </div>
         <div class="team__info">
             <p>Country: 

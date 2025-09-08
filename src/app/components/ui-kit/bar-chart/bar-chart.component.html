@@ -1,0 +1,27 @@
+<div 
+    class="chart-wrapper"
+    *ngIf="isBrowser"
+>
+    <div class="league">
+        <div class="image-wrapper">
+            <img [src]="playerStats?.league?.logo" alt="League logo">
+        </div>
+        <h3>{{ playerStats?.league?.name || 'League name' }}</h3>
+        <div class="image-wrapper" *ngIf="playerStats?.league?.flag">
+            <img [src]="playerStats?.league?.flag" alt="Country flag">
+        </div>
+    </div>
+    <div class="dark-ngx-charts">
+        <ngx-charts-bar-vertical
+            [results]="data"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showDataLabel]="true"
+            [legend]="false"
+            [showYAxisLabel]="true"
+            [yAxisLabel]="playerStats?.league?.season
+                ? playerStats!.league!.season + ' / ' + (playerStats!.league!.season + 1)
+                : 'Season'"
+        ></ngx-charts-bar-vertical>
+    </div>
+</div>

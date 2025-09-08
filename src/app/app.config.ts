@@ -13,6 +13,7 @@ import { MatchesEffects } from './store/matches/matches.effects';
 import { TeamsEffects } from './store/teams/teams.effects';
 import { TeamSquadEffects } from './store/team-squad/team-squad.effects';
 import { PlayerEffects } from './store/player/player.effects';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
       PlayerEffects,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideRouterStore()
+    provideRouterStore(),
+    provideAnimations(),
   ]
 };

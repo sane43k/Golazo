@@ -30,6 +30,12 @@ export const routes: Routes = [
                     .then(c => c.PlayerPageComponent),
                 title: 'Player - Golazo',
             },
+            {
+                path: 'favorites',
+                loadComponent: () => import('./pages/favorites-page/favorites-page.component')
+                    .then(c => c.FavoritesPageComponent),
+                title: 'Favorites - Golazo',
+            },
         ]
     }
 ];
